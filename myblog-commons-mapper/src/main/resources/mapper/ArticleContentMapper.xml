@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.myblog.commons.mapper.ArticleContentMapper">
+  <resultMap id="BaseResultMap" type="com.zyt.myblog.commons.domain.ArticleContent">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sort_id" jdbcType="INTEGER" property="sortId" />
+    <result column="sub_sort_id" jdbcType="INTEGER" property="subSortId" />
+    <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="sub_sort" jdbcType="VARCHAR" property="subSort" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="traffic" jdbcType="INTEGER" property="traffic" />
+    <result column="create_by" jdbcType="TIMESTAMP" property="createBy" />
+    <result column="modified_by" jdbcType="TIMESTAMP" property="modifiedBy" />
+  </resultMap>
+
+
+  <!--<select id="selectAll" resultMap="BaseResultMap">-->
+    <!--SELECT-->
+	  <!--a.id,-->
+	  <!--a.sort_id,-->
+	  <!--a.sub_sort_id,-->
+	  <!--a.title_id,-->
+	  <!--a.sub_sort,-->
+	  <!--a.title,-->
+	  <!--a.traffic,-->
+	  <!--c.content,-->
+	  <!--c.picture_url AS pictureUrl-->
+	<!--FROM-->
+	  <!--article_content AS a-->
+	<!--LEFT JOIN article_sub_sort AS b-->
+	  <!--ON a.sub_sort_id = b.id-->
+	<!--LEFT JOIN article_info AS c-->
+	  <!--ON a.title_id = c.id-->
+  <!--</select>-->
+</mapper>
