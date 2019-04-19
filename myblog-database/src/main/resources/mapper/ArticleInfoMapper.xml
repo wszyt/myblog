@@ -7,9 +7,9 @@
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="CHAR" property="title" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
     <result column="create_by" jdbcType="TIMESTAMP" property="createBy" />
     <result column="modified_by" jdbcType="TIMESTAMP" property="modifiedBy" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
 </mapper>

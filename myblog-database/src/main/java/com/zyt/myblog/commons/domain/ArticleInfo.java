@@ -18,11 +18,6 @@ public class ArticleInfo {
     private String title;
 
     /**
-     * 文章内容
-     */
-    private String content;
-
-    /**
      * 图片地址
      */
     @Column(name = "picture_url")
@@ -39,6 +34,11 @@ public class ArticleInfo {
      */
     @Column(name = "modified_by")
     private Date modifiedBy;
+
+    /**
+     * 文章内容
+     */
+    private String content;
 
     /**
      * 获取主键,文章id
@@ -74,24 +74,6 @@ public class ArticleInfo {
      */
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    /**
-     * 获取文章内容
-     *
-     * @return content - 文章内容
-     */
-    public String getContent() {
-        return content;
-    }
-
-    /**
-     * 设置文章内容
-     *
-     * @param content 文章内容
-     */
-    public void setContent(String content) {
-        this.content = content;
     }
 
     /**
@@ -146,5 +128,23 @@ public class ArticleInfo {
      */
     public void setModifiedBy(Date modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    /**
+     * 获取文章内容
+     *
+     * @return content - 文章内容
+     */
+    public String getContent() {
+        return content;
+    }
+
+    /**
+     * 设置文章内容
+     *
+     * @param content 文章内容
+     */
+    public void setContent(String content) {
+        this.content = content;
     }
 }

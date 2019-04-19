@@ -31,7 +31,7 @@ services:
 dubbo:
   ## Base packages to scan Dubbo Component：@com.alibaba.dubbo.config.annotation.Service
   scan:
-    basePackages: com.zyt.myblog.commons.provider.api
+    basePackages: com.zyt.myblog.commons.provider
   ## ApplicationConfig Bean
   application:
     id: myblog-commons-provider

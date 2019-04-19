@@ -11,6 +11,7 @@ import com.zyt.myblog.commons.mapper.ArticleContentMapper;
 import com.zyt.myblog.commons.mapper.ArticleInfoMapper;
 import com.zyt.myblog.commons.mapper.ArticleResultMapper;
 import com.zyt.myblog.commons.mapper.ArticleSubSortMapper;
+import com.zyt.myblog.commons.provider.validator.BeanValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,43 +40,69 @@ public class ArticleResultServiceImpl implements ArticleResultService {
         return resultMapper.selectAll ();
     }
 
+    /**
+     * 保存文章
+     * @param articleResult
+     * @return
+     */
     @Override
     @Transactional(readOnly = false)
     public BaseResult save(ArticleResult articleResult) {
-        ArticleContent articleContent = null;
-        ArticleSubSort articleSubSort = null;
-        ArticleInfo articleInfo = null;
+
+        String validator = BeanValidator.validator (articleResult);
+        if (validator != null) {
+            return BaseResult.fail (validator);
+        }
+
+        ArticleContent articleContent = new ArticleContent ();
+        ArticleSubSort articleSubSort = new ArticleSubSort ();
+        ArticleInfo articleInfo = new ArticleInfo ();
         articleResult.setModifiedBy (new Date ());
 
 //        新增数据
         if (articleResult.getId () == null || articleResult.getId () == 0) {
 
+            if (articleInfoMapper.titleCount (articleResult.getTitle ()) != 0) {
+                return BaseResult.fail ("文章名已存在");
+            }
+
             articleResult.setCreateBy (articleResult.getModifiedBy ());
 
+//            插入文章信息
             articleInfo.setTitle (articleResult.getTitle ());
             articleInfo.setContent (articleResult.getContent ());
-            articleInfo.setPictureUrl (articleResult.getPictureUrl ());
+            if (articleResult.getPictureUrl () != null) {
+                articleInfo.setPictureUrl (articleResult.getPictureUrl ());
+            }
             articleInfo.setCreateBy (articleResult.getCreateBy ());
             articleInfo.setModifiedBy (articleResult.getModifiedBy ());
-            articleInfoMapper.insert (articleInfo);
-            int infoId = articleInfoMapper.selectByCreateBy (articleResult.getCreateBy ());
+            articleInfoMapper.insertAndGetId (articleInfo);
 
+//            插入分类信息
             articleSubSort.setSubSort (articleResult.getSubSort ());
-            articleSubSort.setCreateBy (articleResult.getCreateBy ());
-            articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
-            articleSubSortMapper.insert (articleSubSort);
-            int subSortId = articleSubSortMapper.selectByCreateBy (articleResult.getCreateBy ());
+//            如果子分类已存在则使用子分类
+            if (articleSubSortMapper.selectSubSort (articleSubSort) != null) {
+                articleSubSort = articleSubSortMapper.selectSubSort (articleSubSort);
+            }
 
+//            反之新建
+            else {
+                articleSubSort.setCreateBy (articleResult.getCreateBy ());
+                articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
+                articleSubSortMapper.insertAndGetId (articleSubSort);
+            }
+
+//            新增文章信息
             articleContent.setSortId (articleResult.getSortId ());
-            articleContent.setSubSortId (subSortId);
-            articleContent.setTitleId (infoId);
+            articleContent.setSubSortId (articleSubSort.getId ());
+            articleContent.setTitleId (articleInfo.getId ());
             articleContent.setSubSort (articleResult.getSubSort ());
             articleContent.setTitle (articleResult.getTitle ());
+            articleContent.setTraffic (0);
             articleContent.setCreateBy (articleResult.getCreateBy ());
             articleContent.setModifiedBy (articleResult.getModifiedBy ());
             articleContentMapper.insert (articleContent);
 
-            return BaseResult.success ("添加文章成功");
         }
 
 //        修改文章
@@ -99,18 +126,36 @@ public class ArticleResultServiceImpl implements ArticleResultService {
             articleContent.setTitle (articleResult.getTitle ());
             articleContent.setSortId (articleResult.getSortId ());
             articleContentMapper.updateByPrimaryKey (articleContent);
-
-            return  BaseResult.success ("更新文章成功");
-
         }
 
-        return BaseResult.fail ("操作失败");
+        return BaseResult.success ("编辑文章成功");
     }
 
+    /**
+     * 根据id获取文章
+     * @param id
+     * @return
+     */
     @Override
     public ArticleResult getById(Long id) {
         return resultMapper.getById (id);
     }
 
+    /**
+     * 删除文章
+     * @param id
+     */
+    @Override
+    @Transactional(readOnly = false)
+    public void delete(Long id) {
+        ArticleResult articleResult = resultMapper.getById (id);
+
+        if (articleContentMapper.count (articleResult.getSubSort ()) == 1) {
+            articleSubSortMapper.deleteByPrimaryKey (articleResult.getSubSortId ());
+        }
+        articleInfoMapper.deleteByPrimaryKey (articleResult.getTitleId ());
+        articleContentMapper.deleteByPrimaryKey (id);
+
+    }
 
 }

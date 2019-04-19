@@ -11,4 +11,7 @@ public interface ArticleResultService {
     BaseResult save(ArticleResult articleResult);
 
     ArticleResult getById(Long id);
+
+    void delete(Long id);
+
 }

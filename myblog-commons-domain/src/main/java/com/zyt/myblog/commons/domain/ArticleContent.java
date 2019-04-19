@@ -24,13 +24,13 @@ public class ArticleContent implements Serializable {
      * 子分类id
      */
     @Column(name = "sub_sort_id")
-    private Integer subSortId;
+    private Long subSortId;
 
     /**
      * 文章id
      */
     @Column(name = "title_id")
-    private Integer titleId;
+    private Long titleId;
 
     /**
      * 子分类
@@ -101,7 +101,7 @@ public class ArticleContent implements Serializable {
      *
      * @return sub_sort_id - 子分类id
      */
-    public Integer getSubSortId() {
+    public Long getSubSortId() {
         return subSortId;
     }
 
@@ -110,7 +110,7 @@ public class ArticleContent implements Serializable {
      *
      * @param subSortId 子分类id
      */
-    public void setSubSortId(Integer subSortId) {
+    public void setSubSortId(Long subSortId) {
         this.subSortId = subSortId;
     }
 
@@ -119,7 +119,7 @@ public class ArticleContent implements Serializable {
      *
      * @return title_id - 文章id
      */
-    public Integer getTitleId() {
+    public Long getTitleId() {
         return titleId;
     }
 
@@ -128,7 +128,7 @@ public class ArticleContent implements Serializable {
      *
      * @param titleId 文章id
      */
-    public void setTitleId(Integer titleId) {
+    public void setTitleId(Long titleId) {
         this.titleId = titleId;
     }
 

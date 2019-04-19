@@ -5,5 +5,6 @@ import tk.mybatis.mapper.MyMapper;
 
 public interface ArticleContentMapper extends MyMapper<ArticleContent> {
 
+    int count(String subSort);
 
 }

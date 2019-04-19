@@ -6,7 +6,9 @@ import tk.mybatis.mapper.MyMapper;
 
 import java.util.Date;
 
-
+@Repository
 public interface ArticleInfoMapper extends MyMapper<ArticleInfo> {
-    Integer selectByCreateBy(Date createBy);
+    void insertAndGetId(ArticleInfo articleInfo);
+
+    int titleCount(String title);
 }

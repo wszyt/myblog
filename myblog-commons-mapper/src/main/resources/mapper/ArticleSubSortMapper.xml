@@ -12,12 +12,27 @@
   </resultMap>
 
 
-  <select id="selectByCreateBy" resultMap="BaseResultMap">
+    <select id="selectSubSort" resultMap="BaseResultMap">
     SELECT
 	  id
     FROM
 	  article_sub_sort
     WHERE
-	  create_by = #{createBy}
+	  sub_sort = #{subSort}
   </select>
+
+    <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO article_sub_sort (
+      id,
+      sub_sort,
+      create_by,
+      modified_by
+      )
+    VALUES (
+      #{id},
+      #{subSort},
+      #{createBy},
+      #{modifiedBy}
+      )
+    </insert>
 </mapper>
