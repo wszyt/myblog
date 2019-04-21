@@ -1,0 +1,81 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body th:fragment="navbar">
+        <!-- navbar   -->
+        <nav class="navbar navbar-full navbar-fixed-top">
+
+            <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+                &#9776;
+            </button>
+
+            <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+
+                <ul class="nav navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#top">回到顶部</a>
+                        <div></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-dropdown="#dropdown-standard">在线文档</a>
+                        <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="dropdown-standard">
+                            <ul>
+                                <h6 style="margin-left: 12px">前端文档</h6>
+                                <li class="divider"></li>
+                                <li><a class="external" href="https://cn.vuejs.org/v2/api/" target="_blank">Vue</a></li>
+                                <li><a class="external" href="https://vuex.vuejs.org/zh/api/#vuex-store" target="_blank">Vuex</a></li>
+                                <li><a class="external" href="https://www.kancloud.cn/yunye/axios/234845" target="_blank">Axios</a></li>
+                                <li><a class="external" href="https://www.jquery123.com/" target="_blank">jQuery</a></li>
+                                <li><a class="external" href="http://www.runoob.com/bootstrap/bootstrap-tutorial.html" target="_blank">Bootstrap</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-dropdown="#dropdown-standard2">在线工具</a>
+                        <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="dropdown-standard2">
+                            <ul style="color: #0a001f; font-size: 5px">
+                                <h6 style="margin-left: 12px">在线编辑</h6>
+                                <li><a class="external" href="https://smallpdf.com/cn/pdf-to-word" target="_blank">PDF 转换器</a></li>
+                                <li><a class="external" href="https://www.bejson.com/jsoneditoronline" target="_blank">JSON 编辑器</a></li>
+                                <li><a class="external" href="https://tableconvert.com/?output=text&data=id%2C%20name%2C%20age%2C%20gender%0A1%2C%20Lawrence%2C%2039%2C%20M%0A2%2C%20Oliver%2C%2025%2C%20M%0A3%2C%20Roberta%2C%2017%2C%20F%0A4%2C%20Bamboo%2C%2070%2C%20F%0A" target="_blank">MD 表格生成</a></li>
+                                <li><a class="external" href="http://cron.qqe2.com/" target="_blank">CRON 表达式</a></li>
+                                <li><a class="external" href="http://tool.oschina.net/codeformat/html" target="_blank">代码格式化</a></li>
+                                <li><a class="external" href="https://zh.numberempire.com/latexequationeditor.php" target="_blank">公式编辑器</a></li>
+                                <li><a class="external" href="https://cli.im/" target="_blank">二维码生成器</a></li>
+                                <li><a class="external" href="http://tool.chinaz.com/tools/native_ascii.aspx" target="_blank">在线编码转换</a></li>
+                                <li><a class="external" href="http://www.toyaml.com/" target="_blank">YAML &lt;-&gt; Properties</a></li>
+                                <li><a class="external" href="https://jsfiddle.net/" target="_blank">在线 Web 练习</a></li>
+                                <li class="divider"></li>
+                                <h6 style="margin-left: 12px">在线服务</h6>
+                                <li><a class="external" href="https://www.bootcdn.cn/" target="_blank">Boot CDN</a></li>
+                                <li><a class="external" href="http://cdn.code.baidu.com/" target="_blank">百度 CDN</a></li>
+                                <li><a class="external" href="http://qydev.weixin.qq.com/cdn/cdnjs.html" target="_blank">微信 CDN</a></li>
+                                <li><a class="external" href="https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/" target="_blank">科大谷歌字体加速</a></li>
+                                <li><a class="external" href="https://tldr.ostera.io/" target="_blank">tldr 命令手册</a></li>
+                                <li class="divider"></li>
+                                <h6 style="margin-left: 12px">开源镜像</h6>
+                                <li><a class="external" href="https://opsx.alibaba.com/" target="_blank">OPSX</a></li>
+                                <li><a class="external" href="https://mirror.azure.cn/" target="_blank">AZURE</a></li>
+                                <li><a class="external" href="https://hub.docker.com/" target="_blank">Docker HUB</a></li>
+                                <li class="divider"></li>
+                                <h6 style="margin-left: 12px">趋势分析</h6>
+                                <li><a class="external" href="https://trends.google.com/trends/?geo=US" target="_blank">谷歌趋势</a></li>
+                                <li><a class="external" href="http://index.baidu.com/#/" target="_blank">百度指数</a></li>
+                                <li><a class="external" href="https://tongji.baidu.com/data/browser" target="_blank">百度流量研究院</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link external" href="https://cn.vuejs.org/v2/api/" target="_blank">Columns</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+</body>
+</html>

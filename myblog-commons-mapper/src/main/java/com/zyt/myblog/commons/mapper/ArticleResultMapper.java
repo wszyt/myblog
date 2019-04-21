@@ -10,4 +10,6 @@ public interface ArticleResultMapper {
     List<ArticleResult> selectAll();
 
     ArticleResult getById(Long id);
+
+    List<ArticleResult> selectBySortId(Integer sortId);
 }

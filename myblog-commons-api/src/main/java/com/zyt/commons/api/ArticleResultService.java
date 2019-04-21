@@ -14,4 +14,6 @@ public interface ArticleResultService {
 
     void delete(Long id);
 
+    List<ArticleResult> selectBySortId(Integer sortId);
+
 }

@@ -70,9 +70,9 @@
                                 <tr th:each="articleResults:${articleResults}">
                                     <td th:text="${articleResults.id}" th:hidden="true">  </td>
                                     <div th:switch="${articleResults.sortId}">
-                                        <td th:case="1">Java基础</td>
-                                        <td th:case="2">Java单体应用</td>
-                                        <td th:case="3">SpringBoot + SpringCloud(Eureka)</td>
+                                        <td th:case="1">Java单体应用</td>
+                                        <td th:case="2">微服务部分基础</td>
+                                        <td th:case="3">SpringBoot + SpringCloud(Netflix)</td>
                                         <td th:case="4">Dubbo + Zookeeper</td>
                                     </div >
                                     <td th:text="${articleResults.subSort}">  </td>

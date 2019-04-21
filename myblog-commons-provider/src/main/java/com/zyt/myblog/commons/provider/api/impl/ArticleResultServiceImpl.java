@@ -158,4 +158,9 @@ public class ArticleResultServiceImpl implements ArticleResultService {
 
     }
 
+    @Override
+    public List<ArticleResult> selectBySortId(Integer sortId) {
+        return resultMapper.selectBySortId (sortId);
+    }
+
 }

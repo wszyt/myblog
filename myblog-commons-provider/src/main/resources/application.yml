@@ -26,6 +26,9 @@ services:
   versions:
     backend:
       v1: 1.0.0
+    article:
+      ui:
+        v1: 1.0.0
 
 # Dubbo Config properties
 dubbo:

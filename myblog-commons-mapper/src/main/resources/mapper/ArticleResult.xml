@@ -62,4 +62,26 @@
 	WHERE a.id = #{id}
   </select>
 
+	<select id="selectBySortId" resultMap="BaseResultMap">
+    SELECT
+	  a.id,
+	  a.sort_id,
+	  a.sub_sort_id,
+	  a.title_id,
+	  a.sub_sort,
+	  a.title,
+	  a.traffic,
+	  a.create_by,
+	  a.modified_by,
+	  c.content,
+	  c.picture_url
+	FROM
+	  article_content AS a
+	LEFT JOIN article_sub_sort AS b
+	  ON a.sub_sort_id = b.id
+	LEFT JOIN article_info AS c
+	  ON a.title_id = c.id
+	WhERE sort_id = #{id}
+  </select>
+
 </mapper>
