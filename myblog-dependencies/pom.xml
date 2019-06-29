@@ -29,7 +29,7 @@
         <boot-mapper.version>2.1.5</boot-mapper.version>
         <boot-pagehelper.version>1.2.5</boot-pagehelper.version>
         <boot-druid.version>1.1.10</boot-druid.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.9.9</jackson.version>
 
         <!-- Spring Cloud Settings -->
         <cloud-hystrix.version>2.1.0.RELEASE</cloud-hystrix.version>

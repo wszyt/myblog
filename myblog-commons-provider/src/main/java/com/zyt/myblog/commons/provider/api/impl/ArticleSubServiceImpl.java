@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service(version = "${services.versions.backend.v1}")
+@Service(version = "${services.versions.commons.provider.v1}")
 @Transactional(readOnly = true)
 public class ArticleSubServiceImpl implements ArticleSubSortService {
 

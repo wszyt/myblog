@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@Service(version = "${services.versions.backend.v1}")
+@Service(version = "${services.versions.commons.provider.v1}")
 @Transactional(readOnly = true)
 public class ArticleResultServiceImpl implements ArticleResultService {
 

@@ -14,8 +14,9 @@ server:
 # Services Versions
 services:
   versions:
-    backend:
-      v1: 1.0.0
+    commons:
+      provider:
+        v1: 1.0.0
 
 # Dubbo Config properties
 dubbo:
@@ -35,7 +36,7 @@ dubbo:
   ## RegistryConfig Bean
   registry:
     id: zookeeper
-    address: zookeeper://192.168.142.130:2181?backup=192.168.142.130:2182,192.168.142.130:2183
+    address: zookeeper://192.168.142.139:2181?backup=192.168.142.139:2182,192.168.142.139:2183
 
 # Dubbo Endpoint (default status is disable)
 endpoints:
@@ -71,8 +72,8 @@ management:
         include: "*"
 
 
-fastdfs.base.url: http://192.168.142.130:8888/
+fastdfs.base.url: http://192.168.142.139:8888/
 storage:
   type: fastdfs
   fastdfs:
-    tracker_server: 192.168.142.130:22122
+    tracker_server: 192.168.142.139:22122

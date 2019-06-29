@@ -18,13 +18,13 @@ import java.util.List;
 @Controller
 public class ArticleController {
 
-    @Reference(version = "${services.versions.article.ui.v1}")
+    @Reference(version = "${services.versions.commons.provider.v1}")
     private ArticleResultService articleResultService;
 
-    @Reference(version = "${services.versions.article.ui.v1}")
+    @Reference(version = "${services.versions.commons.provider.v1}")
     private ArticleSubSortService articleSubSortService;
 
-    @Reference(version = "${services.versions.article.ui.v1}")
+    @Reference(version = "${services.versions.commons.provider.v1}")
     private ArticleInfoService articleInfoService;
 
     @RequestMapping(value = {"index", ""}, method = RequestMethod.GET)

@@ -24,10 +24,8 @@ mybatis:
 # Services Versions
 services:
   versions:
-    backend:
-      v1: 1.0.0
-    article:
-      ui:
+    commons:
+      provider:
         v1: 1.0.0
 
 # Dubbo Config properties
@@ -51,7 +49,7 @@ dubbo:
   ## RegistryConfig Bean
   registry:
     id: zookeeper
-    address: zookeeper://192.168.142.130:2181?backup=192.168.142.130:2182,192.168.142.130:2183
+    address: zookeeper://192.168.142.139:2181?backup=192.168.142.139:2182,192.168.142.139:2183
 
 # Enables Dubbo All Endpoints
 management:

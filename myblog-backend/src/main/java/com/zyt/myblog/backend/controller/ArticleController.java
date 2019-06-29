@@ -32,10 +32,10 @@ public class ArticleController {
         return articleResult;
     }
 
-    @Reference(version = "${services.versions.backend.v1}")
+    @Reference(version = "${services.versions.commons.provider.v1}")
     private ArticleResultService articleResultService;
 
-    @Reference(version = "${services.versions.backend.v1}")
+    @Reference(version = "${services.versions.commons.provider.v1}")
     private ArticleSubSortService articleSubSortService;
 
     @RequestMapping(value = {"list", ""}, method = RequestMethod.GET)
@@ -54,7 +54,7 @@ public class ArticleController {
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String list() {
-        return "index";
+        return "list";
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)

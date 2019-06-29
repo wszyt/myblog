@@ -7,7 +7,7 @@ import com.zyt.myblog.commons.mapper.ArticleInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service(version = "${services.versions.backend.v1}")
+@Service(version = "${services.versions.commons.provider.v1}")
 @Transactional(readOnly = true)
 public class ArticleInfoServiceImpl implements ArticleInfoService {
     @Autowired
