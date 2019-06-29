@@ -14,8 +14,10 @@ server:
 # Services Versions
 services:
   versions:
-    backend:
-      v1: 1.0.0
+    commons:
+      provider:
+        v1: 1.0.0
+
 
 # Dubbo Config properties
 dubbo:
