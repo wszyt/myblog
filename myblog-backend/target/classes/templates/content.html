@@ -1,0 +1,37 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/assets/css/editormd.preview.css" />
+</head>
+<body>
+
+    <div id="test-editormd-view2">
+        <textarea id="append-test" style="display:none;"  th:text="${articleResult.content}">
+        </textarea>
+    </div>
+
+    <script src="/assets/lib/marked.min.js"></script>
+    <script src="/assets/lib/prettify.min.js"></script>
+
+    <script src="/assets/lib/raphael.min.js"></script>
+    <script src="/assets/lib/underscore.min.js"></script>
+    <script src="/assets/lib/sequence-diagram.min.js"></script>
+    <script src="/assets/lib/flowchart.min.js"></script>
+    <script src="/assets/lib/jquery.flowchart.min.js"></script>
+    <script src="/assets/lib/editormd.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
+            });
+
+        });
+    </script>
+
+</body>
+</html>
