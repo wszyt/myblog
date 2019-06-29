@@ -81,7 +81,7 @@
 	  ON a.sub_sort_id = b.id
 	LEFT JOIN article_info AS c
 	  ON a.title_id = c.id
-	WhERE sort_id = #{id}
+	WhERE a.sort_id = #{id}
   </select>
 
 </mapper>

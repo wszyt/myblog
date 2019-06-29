@@ -6,6 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sort_id" jdbcType="INTEGER" property="sortId" />
     <result column="sub_sort" jdbcType="VARCHAR" property="subSort" />
     <result column="create_by" jdbcType="TIMESTAMP" property="createBy" />
     <result column="modified_by" jdbcType="TIMESTAMP" property="modifiedBy" />

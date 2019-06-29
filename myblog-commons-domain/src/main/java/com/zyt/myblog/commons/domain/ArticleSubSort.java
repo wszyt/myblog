@@ -15,6 +15,12 @@ public class ArticleSubSort implements Serializable {
     private Long id;
 
     /**
+     * 分类id
+     */
+    @Column(name = "sort_id")
+    private Integer sortId;
+
+    /**
      * 子分类
      */
     @Column(name = "sub_sort")
@@ -48,6 +54,24 @@ public class ArticleSubSort implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 获取分类id
+     *
+     * @return sort_id - 分类id
+     */
+    public Integer getSortId() {
+        return sortId;
+    }
+
+    /**
+     * 设置分类id
+     *
+     * @param sortId 分类id
+     */
+    public void setSortId(Integer sortId) {
+        this.sortId = sortId;
     }
 
     /**

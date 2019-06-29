@@ -80,6 +80,7 @@ public class ArticleResultServiceImpl implements ArticleResultService {
 
 //            插入分类信息
             articleSubSort.setSubSort (articleResult.getSubSort ());
+            articleSubSort.setSortId (articleResult.getSortId ());
 //            如果子分类已存在则使用子分类
             if (articleSubSortMapper.selectSubSort (articleSubSort) != null) {
                 articleSubSort = articleSubSortMapper.selectSubSort (articleSubSort);
@@ -115,12 +116,38 @@ public class ArticleResultServiceImpl implements ArticleResultService {
             articleInfoMapper.updateByPrimaryKey (articleInfo);
 
 
-            articleSubSort = articleSubSortMapper.selectByPrimaryKey (articleResult.getSubSortId ());
-            articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
+
+            //            插入分类信息
             articleSubSort.setSubSort (articleResult.getSubSort ());
-            articleSubSortMapper.updateByPrimaryKey (articleSubSort);
+            articleSubSort.setSortId (articleResult.getSortId ());
+//            如果子分类已存在则使用子分类
+            if (articleSubSortMapper.selectSubSort (articleSubSort) != null) {
+                articleSubSort = articleSubSortMapper.selectSubSort (articleSubSort);
+                articleSubSort.setSortId (articleResult.getSortId ());
+//                更新子分类表中的sortId
+                if (articleContentMapper.count (articleResult.getSubSort ()) == 1) {
+                    articleSubSortMapper.updateByPrimaryKey (articleSubSort);
+                }
+            }
+
+//            反之新建
+            else {
+                articleSubSort.setCreateBy (articleResult.getCreateBy ());
+                articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
+                articleSubSortMapper.insertAndGetId (articleSubSort);
+            }
+
+
+
+
+//            articleSubSort = articleSubSortMapper.selectByPrimaryKey (articleResult.getSubSortId ());
+//            articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
+//            articleSubSort.setSubSort (articleResult.getSubSort ());
+//            articleSubSort.setSortId (articleResult.getSortId ());
+//            articleSubSortMapper.updateByPrimaryKey (articleSubSort);
 
             articleContent = articleContentMapper.selectByPrimaryKey (articleResult.getId ());
+            articleContent.setSubSortId (articleSubSort.getId ());
             articleContent.setModifiedBy (articleResult.getModifiedBy ());
             articleContent.setSubSort (articleResult.getSubSort ());
             articleContent.setTitle (articleResult.getTitle ());

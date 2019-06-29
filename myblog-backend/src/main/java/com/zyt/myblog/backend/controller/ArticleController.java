@@ -2,7 +2,10 @@ package com.zyt.myblog.backend.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.zyt.commons.api.ArticleResultService;
+import com.zyt.commons.api.ArticleSubSortService;
+import com.zyt.myblog.backend.utlis.MapperUtils;
 import com.zyt.myblog.commons.domain.ArticleResult;
+import com.zyt.myblog.commons.domain.ArticleSubSort;
 import com.zyt.myblog.commons.dto.BaseResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +35,8 @@ public class ArticleController {
     @Reference(version = "${services.versions.backend.v1}")
     private ArticleResultService articleResultService;
 
+    @Reference(version = "${services.versions.backend.v1}")
+    private ArticleSubSortService articleSubSortService;
 
     @RequestMapping(value = {"list", ""}, method = RequestMethod.GET)
     public String selectAll(Model model) {
@@ -41,7 +46,9 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "form", method = RequestMethod.GET)
-    public String form() {
+    public String form(Model model) {
+        List<ArticleSubSort> articleSubSorts = articleSubSortService.selectBySortId (1);
+        model.addAttribute ("articleSubSorts", articleSubSorts);
         return "form";
     }
 
@@ -78,5 +85,12 @@ public class ArticleController {
         return "content";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "subSort", method = RequestMethod.GET)
+    public String subSort(Integer sortId) throws Exception {
+            List<ArticleSubSort> articleSubSorts = articleSubSortService.selectBySortId (sortId);
+            String data = MapperUtils.obj2json (articleSubSorts);
+            return data;
+    }
 
 }

@@ -1,0 +1,183 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>我的(花里胡哨的)博客</title>
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="/assets/font-awesome-4.5.0/css/font-awesome.min.css">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="/assets/css/templatemo-style.css">                                   <!-- Templatemo style -->
+
+    <link rel="stylesheet" href="/assets/css/jquery.sweet-dropdown.css">
+    <link rel="stylesheet" href="/assets/css/editormd.preview.css" />
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    body {padding: 0px;}
+
+    #layout > header, .btns {
+        width: auto;
+    }
+
+    #sidebar {
+        width: 20%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        overflow: auto;
+        background: #fff;
+        z-index: 100;
+        padding-top: 18px;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-bottom: none;
+    }
+
+    #sidebar:hover {
+        overflow: auto;
+    }
+
+    #sidebar h1 {
+        font-size: 20px;
+    }
+
+    #sidebar a{
+        color: black;
+    }
+
+    #sidebar a:hover{
+        color: #00aaaa;
+    }
+
+    #custom-toc-container {
+        padding-right: 0;
+    }
+
+    #test-editormd-view, #test-editormd-view2 {
+        padding-right: 0;
+        padding-left: 25%;
+        margin: 0;
+    }
+</style>
+<body id="top" class="page-2">
+    <div class="tm-navbar-container tm-navbar-container-dark">
+        <th:block th:include="includes/navbar :: navbar"></th:block>
+    </div>
+<div id="layout">
+    <div id="sidebar">
+    <h1 align="center">目录</h1>
+    <div class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container</div>
+    </div>
+
+        <div style="height: 100%;">
+            <br/>
+                <!--<div th:switch="${catalogs.get(0).sortId}">-->
+                    <!--<h1 class="text-xs-center blue-text tm-page-2-title" th:case="1">Java单体应用</h1>-->
+                    <!--<h1 class="text-xs-center blue-text tm-page-2-title" th:case="2">微服务部分基础</h1>-->
+                    <!--<h1 class="text-xs-center blue-text tm-page-2-title" th:case="3">SpringBoot + SpringCloud(Netflix)</h1>-->
+                    <!--<h1 class="text-xs-center blue-text tm-page-2-title" th:case="4">Dubbo + Zookeeper</h1>-->
+                <!--</div>-->
+                <h1 class="text-xs-center blue-text tm-page-2-title" th:text="${articleInfo.title}"></h1>
+                <hr/>
+                <!--<p class="text-xs-center tm-page-2-p tm-page-2-subtitle">-->
+                    <!--Etiam at rhoncus nisl. Nunc rutrum ac ante euismod cursus. <br>-->
+                    <!--Suspendisse imperdiet feugiat massa nec iaculis.-->
+                <!--</p>-->
+                <!--<img src="img/tm-1800x600-01.jpg" class="img-fluid tm-banner-img" alt="Image">-->
+
+                <div id="test-editormd-view2" style="width: 90%">
+                    <textarea id="append-test" style="display:none;"  th:text="${articleInfo.content}">
+                    </textarea>
+                </div>
+        </div> <!-- .container -->
+</div>
+    <th:block th:include="includes/footer :: footer"></th:block>
+
+<th:block th:include="includes/foot :: foot"></th:block>
+
+
+
+
+<script src="/assets/lib/marked.min.js"></script>
+<script src="/assets/lib/prettify.min.js"></script>
+
+<script src="/assets/lib/raphael.min.js"></script>
+<script src="/assets/lib/underscore.min.js"></script>
+<script src="/assets/lib/sequence-diagram.min.js"></script>
+<script src="/assets/lib/flowchart.min.js"></script>
+<script src="/assets/lib/jquery.flowchart.min.js"></script>
+<script src="/assets/lib/editormd.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+            htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            emoji           : true,
+            taskList        : true,
+            tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Templatemo scripts -->
+<script>
+
+    $(document).ready(function(){
+
+        var mobileTopOffset = 54;
+        var tabletTopOffset = 74;
+        var desktopTopOffset = 79;
+        var topOffset = desktopTopOffset;
+
+        if($(window).width() <= 767) {
+            topOffset = mobileTopOffset;
+        }
+        else if($(window).width() <= 991) {
+            topOffset = tabletTopOffset;
+        }
+
+        /* Single page nav
+        -----------------------------------------*/
+        $('#tmNavbar').singlePageNav({
+            'currentClass' : "active",
+            offset : topOffset,
+            'filter': ':not(.external)'
+        });
+
+        if($(window).width() < 570) {
+            $('.tm-full-width-large-table').addClass('table-responsive');
+        }
+        else {
+            $('.tm-full-width-large-table').removeClass('table-responsive');
+        }
+
+
+
+
+    });
+
+</script>
+</body>
+</html>
