@@ -8,6 +8,18 @@ spring:
     encoding: UTF-8
     servlet:
       content-type: text/html
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    database: 0
+    host: 172.16.43.130
+    port: 6379
+    timeout: 10000
+
 server:
   port: 8601
 
@@ -36,7 +48,7 @@ dubbo:
   ## RegistryConfig Bean
   registry:
     id: zookeeper
-    address: zookeeper://192.168.142.139:2181?backup=192.168.142.139:2182,192.168.142.139:2183
+    address: zookeeper://172.16.43.130:2181?backup=172.16.43.130:2182,172.16.43.130:2183
 
 # Dubbo Endpoint (default status is disable)
 endpoints:
@@ -72,8 +84,8 @@ management:
         include: "*"
 
 
-fastdfs.base.url: http://192.168.142.139:8888/
+fastdfs.base.url: http://172.16.43.130:8888/
 storage:
   type: fastdfs
   fastdfs:
-    tracker_server: 192.168.142.139:22122
+    tracker_server: 172.16.43.130:22122

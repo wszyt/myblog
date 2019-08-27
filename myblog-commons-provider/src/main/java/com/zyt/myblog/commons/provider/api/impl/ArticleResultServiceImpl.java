@@ -35,6 +35,10 @@ public class ArticleResultServiceImpl implements ArticleResultService {
     @Autowired
     private ArticleInfoMapper articleInfoMapper;
 
+    /**
+     * 查找所有信息
+     * @return
+     */
     @Override
     public List<ArticleResult> selectAll() {
         return resultMapper.selectAll ();
@@ -59,86 +63,56 @@ public class ArticleResultServiceImpl implements ArticleResultService {
         ArticleInfo articleInfo = new ArticleInfo ();
         articleResult.setModifiedBy (new Date ());
 
-//        新增数据
+        // 新增数据
         if (articleResult.getId () == null || articleResult.getId () == 0) {
-
             if (articleInfoMapper.titleCount (articleResult.getTitle ()) != 0) {
                 return BaseResult.fail ("文章名已存在");
             }
-
-            articleResult.setCreateBy (articleResult.getModifiedBy ());
-
-//            插入文章信息
-            articleInfo.setTitle (articleResult.getTitle ());
-            articleInfo.setContent (articleResult.getContent ());
-            if (articleResult.getPictureUrl () != null) {
-                articleInfo.setPictureUrl (articleResult.getPictureUrl ());
-            }
-            articleInfo.setCreateBy (articleResult.getCreateBy ());
-            articleInfo.setModifiedBy (articleResult.getModifiedBy ());
-            articleInfoMapper.insertAndGetId (articleInfo);
-
-//            插入分类信息
-            articleSubSort.setSubSort (articleResult.getSubSort ());
-            articleSubSort.setSortId (articleResult.getSortId ());
-//            如果子分类已存在则使用子分类
-            if (articleSubSortMapper.selectSubSort (articleSubSort) != null) {
-                articleSubSort = articleSubSortMapper.selectSubSort (articleSubSort);
-            }
-
-//            反之新建
-            else {
-                articleSubSort.setCreateBy (articleResult.getCreateBy ());
-                articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
-                articleSubSortMapper.insertAndGetId (articleSubSort);
-            }
-
-//            新增文章信息
-            articleContent.setSortId (articleResult.getSortId ());
-            articleContent.setSubSortId (articleSubSort.getId ());
-            articleContent.setTitleId (articleInfo.getId ());
-            articleContent.setSubSort (articleResult.getSubSort ());
-            articleContent.setTitle (articleResult.getTitle ());
-            articleContent.setTraffic (0);
-            articleContent.setCreateBy (articleResult.getCreateBy ());
-            articleContent.setModifiedBy (articleResult.getModifiedBy ());
-            articleContentMapper.insert (articleContent);
-
+            articleInsert(articleResult, articleContent, articleSubSort, articleInfo);
         }
 
-//        修改文章
+        // 修改文章
         else if (articleResult.getId () != null || articleResult.getId () != 0){
-            articleInfo = articleInfoMapper.selectByPrimaryKey (articleResult.getTitleId ());
-            articleInfo.setModifiedBy (articleResult.getModifiedBy ());
-            articleInfo.setTitle (articleResult.getTitle ());
-            articleInfo.setContent (articleResult.getContent ());
-            articleInfo.setPictureUrl (articleResult.getPictureUrl ());
-            articleInfoMapper.updateByPrimaryKey (articleInfo);
+            articleModify(articleResult, articleContent, articleSubSort, articleInfo);
+        }
+
+        return BaseResult.success ("编辑文章成功");
+    }
 
 
+    /**
+     * 修改文章
+     * @param articleResult
+     * @param articleContent
+     * @param articleSubSort
+     * @param articleInfo
+     */
+    private void articleModify(ArticleResult articleResult, ArticleContent articleContent, ArticleSubSort articleSubSort, ArticleInfo articleInfo) {
+        articleInfo = articleInfoMapper.selectByPrimaryKey (articleResult.getTitleId ());
+        articleInfo.setModifiedBy (articleResult.getModifiedBy ());
+        articleInfo.setTitle (articleResult.getTitle ());
+        articleInfo.setContent (articleResult.getContent ());
+        articleInfo.setPictureUrl (articleResult.getPictureUrl ());
+        articleInfoMapper.updateByPrimaryKey (articleInfo);
 
-            //            插入分类信息
-            articleSubSort.setSubSort (articleResult.getSubSort ());
+        // 插入分类信息
+        articleSubSort.setSubSort (articleResult.getSubSort ());
+        articleSubSort.setSortId (articleResult.getSortId ());
+        // 如果子分类已存在则使用子分类
+        if (articleSubSortMapper.selectSubSort (articleSubSort) != null) {
+            articleSubSort = articleSubSortMapper.selectSubSort (articleSubSort);
             articleSubSort.setSortId (articleResult.getSortId ());
-//            如果子分类已存在则使用子分类
-            if (articleSubSortMapper.selectSubSort (articleSubSort) != null) {
-                articleSubSort = articleSubSortMapper.selectSubSort (articleSubSort);
-                articleSubSort.setSortId (articleResult.getSortId ());
-//                更新子分类表中的sortId
-                if (articleContentMapper.count (articleResult.getSubSort ()) == 1) {
-                    articleSubSortMapper.updateByPrimaryKey (articleSubSort);
-                }
+                // 更新子分类表中的sortId
+            if (articleContentMapper.count (articleResult.getSubSort ()) == 1) {
+                articleSubSortMapper.updateByPrimaryKey (articleSubSort);
             }
-
-//            反之新建
-            else {
-                articleSubSort.setCreateBy (articleResult.getCreateBy ());
-                articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
-                articleSubSortMapper.insertAndGetId (articleSubSort);
-            }
-
-
-
+        }
+        // 反之新建
+        else {
+            articleSubSort.setCreateBy (articleResult.getCreateBy ());
+            articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
+            articleSubSortMapper.insertAndGetId (articleSubSort);
+        }
 
 //            articleSubSort = articleSubSortMapper.selectByPrimaryKey (articleResult.getSubSortId ());
 //            articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
@@ -146,16 +120,59 @@ public class ArticleResultServiceImpl implements ArticleResultService {
 //            articleSubSort.setSortId (articleResult.getSortId ());
 //            articleSubSortMapper.updateByPrimaryKey (articleSubSort);
 
-            articleContent = articleContentMapper.selectByPrimaryKey (articleResult.getId ());
-            articleContent.setSubSortId (articleSubSort.getId ());
-            articleContent.setModifiedBy (articleResult.getModifiedBy ());
-            articleContent.setSubSort (articleResult.getSubSort ());
-            articleContent.setTitle (articleResult.getTitle ());
-            articleContent.setSortId (articleResult.getSortId ());
-            articleContentMapper.updateByPrimaryKey (articleContent);
+        articleContent = articleContentMapper.selectByPrimaryKey (articleResult.getId ());
+        articleContent.setSubSortId (articleSubSort.getId ());
+        articleContent.setModifiedBy (articleResult.getModifiedBy ());
+        articleContent.setSubSort (articleResult.getSubSort ());
+        articleContent.setTitle (articleResult.getTitle ());
+        articleContent.setSortId (articleResult.getSortId ());
+        articleContentMapper.updateByPrimaryKey (articleContent);
+    }
+
+    /**
+     * 插入文章
+     * @param articleResult
+     * @param articleContent
+     * @param articleSubSort
+     * @param articleInfo
+     */
+    private void articleInsert(ArticleResult articleResult, ArticleContent articleContent, ArticleSubSort articleSubSort, ArticleInfo articleInfo) {
+        articleResult.setCreateBy (articleResult.getModifiedBy ());
+
+        // 插入文章信息
+        articleInfo.setTitle (articleResult.getTitle ());
+        articleInfo.setContent (articleResult.getContent ());
+        if (articleResult.getPictureUrl () != null) {
+            articleInfo.setPictureUrl (articleResult.getPictureUrl ());
+        }
+        articleInfo.setCreateBy (articleResult.getCreateBy ());
+        articleInfo.setModifiedBy (articleResult.getModifiedBy ());
+        articleInfoMapper.insertAndGetId (articleInfo);
+
+        // 插入分类信息
+        articleSubSort.setSubSort (articleResult.getSubSort ());
+        articleSubSort.setSortId (articleResult.getSortId ());
+        // 如果子分类已存在则使用子分类
+        if (articleSubSortMapper.selectSubSort (articleSubSort) != null) {
+            articleSubSort = articleSubSortMapper.selectSubSort (articleSubSort);
+        }
+        //  反之新建
+        else {
+            articleSubSort.setCreateBy (articleResult.getCreateBy ());
+            articleSubSort.setModifiedBy (articleResult.getModifiedBy ());
+            articleSubSortMapper.insertAndGetId (articleSubSort);
         }
 
-        return BaseResult.success ("编辑文章成功");
+        // 新增文章信息
+        articleContent.setSortId (articleResult.getSortId ());
+        articleContent.setSubSortId (articleSubSort.getId ());
+        articleContent.setTitleId (articleInfo.getId ());
+        articleContent.setSubSort (articleResult.getSubSort ());
+        articleContent.setTitle (articleResult.getTitle ());
+        articleContent.setTraffic (0);
+        articleContent.setCreateBy (articleResult.getCreateBy ());
+        articleContent.setModifiedBy (articleResult.getModifiedBy ());
+        articleContentMapper.insert (articleContent);
     }
 
     /**
@@ -185,6 +202,11 @@ public class ArticleResultServiceImpl implements ArticleResultService {
 
     }
 
+    /**
+     * 根据分类获取文章信息
+     * @param sortId
+     * @return
+     */
     @Override
     public List<ArticleResult> selectBySortId(Integer sortId) {
         return resultMapper.selectBySortId (sortId);
