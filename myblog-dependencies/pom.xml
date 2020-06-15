@@ -37,7 +37,7 @@
 
         <!-- Commons Settings -->
         <kyro.version>0.42</kyro.version>
-        <validator.version>5.3.4.Final</validator.version>
+        <validator.version>5.3.5.Final</validator.version>
         <mysql.version>8.0.12</mysql.version>
     </properties>
 
